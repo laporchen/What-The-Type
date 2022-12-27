@@ -1,0 +1,17 @@
+.correctLetter {
+	color: white;
+}
+.wrongLetter {
+	color: red;
+}
+.currentLetter {
+	background: #b3b3b3;
+	color: white;
+}
+.laterLetter {
+	color: #737373;
+}
+
+.word {
+	margin: 3px;
+}

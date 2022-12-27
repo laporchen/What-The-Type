@@ -1,0 +1,7 @@
+:root {
+	background: #262525;
+	color: white;
+}
+*:not(i):not(.fa) {
+	font-family:monospace;
+}
