@@ -7,11 +7,87 @@
 .currentLetter {
 	background: #b3b3b3;
 	color: white;
+	animation-name: blink;
+	animation-iteration-count: infinite;
+	animation-duration: 1s;
 }
 .laterLetter {
 	color: #737373;
 }
 
+
+.currentWords {
+	display: flex;
+	align-items: center;
+	position: absolute;
+	margin: auto;
+	left: 60px;
+	width: 800px;
+	height: 800px;
+}
+.currentWordMoveIn {
+	animation-name: move-to-center;
+	animation-iteration-count: 1;
+	animation-duration: 120ms;
+}
+.laterWord {
+	overflow: hidden;
+	display: flex;
+	align-items: left;
+	position: absolute;
+	left : 90vw;
+	height: 800px;
+	padding-left:12px;
+}
+.pastWords {
+	overflow: hidden;
+	display: flex;
+	align-items: right;
+	position: absolute;
+	right: 90vw;
+	height: 800px;
+}
+
 .word {
 	margin: 3px;
+}
+
+.main {
+	overflow-x: hidden;
+	position: relative;
+	height: 100%;
+	width: 100vw;
+}
+
+
+@keyframes blink {
+	0% {
+		background: #b3b3b3;
+	}
+	49% {
+		background: #b3b3b3;
+	}
+	50% {
+		background: #000;
+	}
+	100% {
+		background: #000;
+	}
+
+}
+
+@keyframes move-to-center {
+	0% {
+		font-size: 40px;
+		translate: +70vw;
+		opacity: 0;
+	}
+	30% {
+		opacity: 0;
+	}
+	100% {
+		font-size: 150px;
+		translate: 0%;
+		opacity: 1;
+	}
 }
