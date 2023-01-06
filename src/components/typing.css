@@ -15,6 +15,10 @@
 	color: #737373;
 }
 
+.retryText {
+	font-size: 60px;
+	color: gray;
+}
 
 .currentWords {
 	display: flex;

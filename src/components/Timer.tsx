@@ -10,18 +10,22 @@ export interface TimerPropsType {
 const Timer = React.forwardRef((_, ref: React.Ref<TimerPropsType>) => {
 	const [startTime, setStartTime] = useState<number | null>(null)
 	const [endTime, setEndTime] = useState<number | null>(null)
-	const [isStarted, setStarted] = useState(false)
+	const [isStart, setStarted] = useState(false)
 	function startTimer() {
 		setStartTime(Date.now())
 		setEndTime(null)
 		setStarted(true)
 	}
 	function endTimer() {
+		if (!isStart) {
+			return
+		}
 		setEndTime(Date.now())
 		setStarted(false)
 	}
 	function resetTimer() {
 		setStartTime(null)
+		setStarted(false)
 	}
 	useImperativeHandle(ref, () => {
 		return {
@@ -33,9 +37,9 @@ const Timer = React.forwardRef((_, ref: React.Ref<TimerPropsType>) => {
 
 	useEffect(() => {
 		let interval: number | null = 0
-		if (isStarted) interval = setInterval(() => setEndTime(Date.now()), 50)
+		if (isStart) interval = setInterval(() => setEndTime(Date.now()), 50)
 		return () => {
-			if (isStarted) clearInterval(interval!)
+			if (isStart) clearInterval(interval!)
 		}
 	})
 	let timer = ""
