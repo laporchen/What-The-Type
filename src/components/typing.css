@@ -56,6 +56,10 @@
 	margin: 3px;
 }
 
+.wpm {
+	color: white;
+}
+
 .main {
 	overflow-x: hidden;
 	position: relative;

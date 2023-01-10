@@ -11,9 +11,11 @@ interface WordProp {
 }
 
 interface WordListProp {
-	onEnd: () => void
-	onStart: () => void
+	onEnd: () => void,
+	onStart: () => void,
+	setWordComplete: (correct: number, total: number) => void
 }
+
 
 export default function WordList(props: WordListProp) {
 	const [currentWordIndex, setCurrentWordIndex] = useState(0)
@@ -34,18 +36,28 @@ export default function WordList(props: WordListProp) {
 	}
 	function reset() {
 		init()
-		console.log("reset")
 		// might add more lines here
 	}
 	useEffect(() => {
 		init()
 	}, [])
-	function appendWord(e: KeyboardEvent) {
-		if (!startTyping && !endTyping) {
-			props.onStart()
-			setStartTyping(true)
+
+	function getTypedWordData(): [number, number] {
+		let correctCount = 0
+		for (let i = 0; i <= currentWordIndex; ++i) {
+			if (wordList[i].letters === wordList[i].input) {
+				correctCount++
+			}
 		}
+		return [correctCount, currentWordIndex + 1]
+	}
+
+	function appendWord(e: KeyboardEvent) {
 		if (isAlphanum(e.key)) {
+			if (!startTyping && !endTyping) {
+				props.onStart()
+				setStartTyping(true)
+			}
 			let inputs = wordList.slice()
 			inputs[currentWordIndex].input += e.key
 			setWordList(inputs)
@@ -53,13 +65,12 @@ export default function WordList(props: WordListProp) {
 	}
 	function modifyWord(e: KeyboardEvent) {
 		if (e.code === "Enter") {
-			console.log("enter")
 			if (endTyping) {
 				reset()
 				setEndTyping(false)
 			}
 		}
-		if (endTyping) {
+		if (!startTyping || endTyping) {
 			return
 		}
 		if (e.key === "Backspace") {
@@ -74,6 +85,7 @@ export default function WordList(props: WordListProp) {
 		}
 
 		if (e.code === "Space") {
+			props.setWordComplete(...getTypedWordData())
 			if (currentWordIndex + 1 === wordList.length) {
 				setCurrentWordIndex(currentWordIndex + 1)
 				props.onEnd()
@@ -136,7 +148,6 @@ export default function WordList(props: WordListProp) {
 
 
 function Word(props: WordProp) {
-
 	const [word, setWord] = useState("")
 
 	useEffect(() => {

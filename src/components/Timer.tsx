@@ -6,6 +6,7 @@ export interface TimerPropsType {
 	startTimer: () => void
 	endTimer: () => void
 	resetTimer: () => void
+	durationInSecond: number
 }
 const Timer = React.forwardRef((_, ref: React.Ref<TimerPropsType>) => {
 	const [startTime, setStartTime] = useState<number | null>(null)
@@ -31,7 +32,8 @@ const Timer = React.forwardRef((_, ref: React.Ref<TimerPropsType>) => {
 		return {
 			startTimer: startTimer,
 			endTimer: endTimer,
-			resetTimer: resetTimer
+			resetTimer: resetTimer,
+			durationInSecond: ((startTime ? (endTime ? endTime - startTime : Date.now() - startTime) : 0) / 1000)
 		}
 	})
 
