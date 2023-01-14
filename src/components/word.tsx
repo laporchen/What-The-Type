@@ -136,7 +136,7 @@ export default function WordList(props: WordListProp) {
 					{laterWords}
 				</Center>
 			</div>
-			<Center width={"100%"} height="800px">
+			<Center width={"100%"} height="700px">
 				<div className="currentWord">
 					{currentWord}
 				</div>

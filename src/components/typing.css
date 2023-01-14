@@ -27,7 +27,7 @@
 	margin: auto;
 	left: 60px;
 	width: 800px;
-	height: 800px;
+	height: 700px;
 }
 .currentWordMoveIn {
 	animation-name: move-to-center;
@@ -40,7 +40,7 @@
 	align-items: left;
 	position: absolute;
 	left : 90vw;
-	height: 800px;
+	height: 700px;
 	padding-left:12px;
 }
 .pastWords {
@@ -49,7 +49,7 @@
 	align-items: right;
 	position: absolute;
 	right: 90vw;
-	height: 800px;
+	height: 700px;
 }
 
 .word {

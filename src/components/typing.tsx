@@ -5,6 +5,8 @@ import {TimerPropsType} from "./Timer"
 import "./typing.css"
 import WordList from "./word"
 
+import Popup from "./Popup"
+
 
 export default function Typing() {
 	const [isStart, setStart] = useState(false)
@@ -14,7 +16,6 @@ export default function Typing() {
 	const [finishedWord, setFinishedWord] = useState(0)
 	const timerRef = React.createRef<TimerPropsType>()
 	function calculateTypingStat(): void {
-		console.log("calculateWpm", correctWord)
 		if (!timerRef.current?.durationInSecond) {
 			setWpm(0)
 			setAccuracy(0)
@@ -26,13 +27,11 @@ export default function Typing() {
 	}
 	function init() {
 		if (isStart) return
-		console.log("init")
 		timerRef.current?.resetTimer()
 		timerRef.current?.startTimer()
 		setStart(true)
 	}
 	function end() {
-		console.log("end")
 		timerRef.current?.endTimer()
 		setStart(false)
 	}
@@ -53,6 +52,8 @@ export default function Typing() {
 				<Text className="wpm" fontSize={"3xl"}> Accuracy : {accuracy.toFixed(2)}%</Text>
 				<Text className="wpm" fontSize={"3xl"}> Modified WPM : {(wpm * accuracy / 100).toFixed(2)}</Text>
 			</HStack>
+			<Popup />
+			<Text fontSize={"xl"} color="gray">Press esc for setting</Text>
 			<Timer ref={timerRef} />
 		</div >
 	)
