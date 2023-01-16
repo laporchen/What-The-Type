@@ -2,6 +2,7 @@ import {useEffect, useState} from "react"
 import {Text, Center} from "@chakra-ui/react"
 import randomWords from "random-words"
 import "./typing.css"
+import type {Setting} from "./types"
 
 
 interface WordProp {
@@ -13,7 +14,8 @@ interface WordProp {
 interface WordListProp {
 	onEnd: () => void,
 	onStart: () => void,
-	setWordComplete: (correct: number, total: number) => void
+	setWordComplete: (correct: number, total: number) => void,
+	setting: Setting
 }
 
 
@@ -41,6 +43,14 @@ export default function WordList(props: WordListProp) {
 	useEffect(() => {
 		init()
 	}, [])
+
+	useEffect(() => {
+		// update setting herr
+		let countDiff = props.setting.wordCount - wordCount
+		setWordCount(prev => prev + countDiff)
+		reset()
+
+	}, [props.setting])
 
 	function getTypedWordData(): [number, number] {
 		let correctCount = 0

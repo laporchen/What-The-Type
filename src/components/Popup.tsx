@@ -6,7 +6,6 @@ import {
 	ModalFooter,
 	ModalBody,
 	ModalCloseButton,
-	Button,
 	Box,
 	HStack
 } from '@chakra-ui/react'
@@ -16,13 +15,19 @@ import {
 	useRadioGroup
 } from '@chakra-ui/react'
 import type {UseRadioProps} from '@chakra-ui/react'
-import {useEffect} from 'react'
+import {useEffect, useState} from 'react'
+import type {Setting} from './types'
 
 import "./Popup.css"
 
 
-export default function Popup() {
+interface PopupPropType {
+	onSettingChange: (newSetting: Setting) => void
+}
+
+export default function Popup(props: PopupPropType) {
 	const {isOpen, onOpen, onClose} = useDisclosure()
+	const [setting, setSetting] = useState<Setting>({wordCount: 10})
 	useEffect(() => {
 		function escClick(key: KeyboardEvent) {
 			if (key.code == "Escape") {
@@ -35,10 +40,27 @@ export default function Popup() {
 		}
 	}, [])
 
+	function updateWord(newVal: number | string) {
+		let settingCopy = JSON.parse(JSON.stringify(setting))
+		if (typeof newVal === "string") {
+			settingCopy.wordCount = parseInt(newVal)
+		}
+		else {
+			settingCopy.wordCount = newVal
+		}
+		setSetting(settingCopy)
+		return
+	}
+
+	useEffect(() => {
+		props.onSettingChange(setting)
+	}, [setting])
+
 	const wordCountOptions = ["10", "30", "50"]
 	const {getRootProps, getRadioProps} = useRadioGroup({
 		name: 'WordCount',
 		defaultValue: "10",
+		onChange: updateWord
 	})
 	const group = getRootProps()
 	return (
