@@ -67,6 +67,10 @@
 	width: 100vw;
 }
 
+.wordListFrame {
+	max-height: 70vh;
+}
+
 
 @keyframes blink {
 	0% {

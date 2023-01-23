@@ -57,9 +57,11 @@ export default function Typing() {
 	})
 	return (
 		<div className="main">
-			<WordList onStart={() => init()} onEnd={() => end()}
-				setting={setting}
-				setWordComplete={(correct, finished) => {setCorrectWord(correct); setFinishedWord(finished)}} />
+			<div className="wordListFrame">
+				<WordList onStart={() => init()} onEnd={() => end()}
+					setting={setting}
+					setWordComplete={(correct, finished) => {setCorrectWord(correct); setFinishedWord(finished)}} />
+			</div>
 			<HStack justify={"center"} spacing="36px">
 				<Text className="wpm" fontSize={"3xl"}> WPM : {wpm.toFixed(2)}</Text>
 				<Text className="wpm" fontSize={"3xl"}> Accuracy : {accuracy.toFixed(2)}%</Text>
